@@ -1,0 +1,501 @@
+// !$*UTF8*$!
+{
+	089C165DFE840E0CC02AAC07 /* English */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {656, 493}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 45}";
+		};
+	};
+	256AC3D80F4B6AC300CF3369 /* SSHFS_GUIAppDelegate.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {656, 502}}";
+			sepNavSelRange = "{595, 0}";
+			sepNavVisRange = "{0, 781}";
+		};
+	};
+	256AC3D90F4B6AC300CF3369 /* SSHFS_GUIAppDelegate.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1171, 2106}}";
+			sepNavSelRange = "{4179, 0}";
+			sepNavVisRange = "{0, 961}";
+			sepNavWindowFrame = "{{15, 4}, {1036, 874}}";
+		};
+	};
+	256AC3F00F4B6AF500CF3369 /* SSHFS_GUI_Prefix.pch */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1171, 508}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 149}";
+		};
+	};
+	29B97313FDCFA39411CA2CEA /* Project object */ = {
+		activeArchitecturePreference = x86_64;
+		activeBuildConfigurationName = Release;
+		activeExecutable = 5BA95FF910F9A6CD005F0186 /* SSHFS GUI */;
+		activeSDKPreference = macosx10.4;
+		activeTarget = 8D1107260486CEB800E47090 /* SSHFS GUI */;
+		codeSenseManager = 5BA9601710F9A6D5005F0186 /* Code sense */;
+		executables = (
+			5BA95FF910F9A6CD005F0186 /* SSHFS GUI */,
+		);
+		perUserDictionary = {
+			PBXConfiguration.PBXFileTableDataSource3.PBXExecutablesDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXExecutablesDataSource_NameID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					22,
+					300,
+					366,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXExecutablesDataSource_ActiveFlagID,
+					PBXExecutablesDataSource_NameID,
+					PBXExecutablesDataSource_CommentsID,
+				);
+			};
+			PBXConfiguration.PBXFileTableDataSource3.PBXFileTableDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					993,
+					20,
+					48,
+					43,
+					43,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+					PBXFileDataSource_Target_ColumnID,
+				);
+			};
+			PBXConfiguration.PBXFileTableDataSource3.PBXSymbolsDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXSymbolsDataSource_SymbolNameID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					16,
+					200,
+					50,
+					418,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXSymbolsDataSource_SymbolTypeIconID,
+					PBXSymbolsDataSource_SymbolNameID,
+					PBXSymbolsDataSource_SymbolTypeID,
+					PBXSymbolsDataSource_ReferenceNameID,
+				);
+			};
+			PBXPerProjectTemplateStateSaveDate = 284820695;
+			PBXWorkspaceStateSaveDate = 284820695;
+		};
+		perUserProjectItems = {
+			5B405FF510FA057D0085BEF3 /* XCBuildMessageTextBookmark */ = 5B405FF510FA057D0085BEF3 /* XCBuildMessageTextBookmark */;
+			5B405FF710FA057D0085BEF3 /* PBXTextBookmark */ = 5B405FF710FA057D0085BEF3 /* PBXTextBookmark */;
+			5B405FFE10FA05A60085BEF3 /* PBXTextBookmark */ = 5B405FFE10FA05A60085BEF3 /* PBXTextBookmark */;
+			5B405FFF10FA05A60085BEF3 /* XCBuildMessageTextBookmark */ = 5B405FFF10FA05A60085BEF3 /* XCBuildMessageTextBookmark */;
+			5B40600010FA05A60085BEF3 /* PBXTextBookmark */ = 5B40600010FA05A60085BEF3 /* PBXTextBookmark */;
+			5B40600910FA05B80085BEF3 /* XCBuildMessageTextBookmark */ = 5B40600910FA05B80085BEF3 /* XCBuildMessageTextBookmark */;
+			5B40600A10FA05B80085BEF3 /* PBXTextBookmark */ = 5B40600A10FA05B80085BEF3 /* PBXTextBookmark */;
+			5B40600D10FA06180085BEF3 /* XCBuildMessageTextBookmark */ = 5B40600D10FA06180085BEF3 /* XCBuildMessageTextBookmark */;
+			5B40600E10FA06180085BEF3 /* PBXTextBookmark */ = 5B40600E10FA06180085BEF3 /* PBXTextBookmark */;
+			5B40601110FA06340085BEF3 /* PBXTextBookmark */ = 5B40601110FA06340085BEF3 /* PBXTextBookmark */;
+			5B40601210FA06340085BEF3 /* PBXTextBookmark */ = 5B40601210FA06340085BEF3 /* PBXTextBookmark */;
+			5B40601310FA06340085BEF3 /* PBXTextBookmark */ = 5B40601310FA06340085BEF3 /* PBXTextBookmark */;
+			5B40601410FA06340085BEF3 /* XCBuildMessageTextBookmark */ = 5B40601410FA06340085BEF3 /* XCBuildMessageTextBookmark */;
+			5B40601510FA06340085BEF3 /* PBXTextBookmark */ = 5B40601510FA06340085BEF3 /* PBXTextBookmark */;
+			5B40601E10FA064B0085BEF3 /* PBXTextBookmark */ = 5B40601E10FA064B0085BEF3 /* PBXTextBookmark */;
+			5B40601F10FA064B0085BEF3 /* XCBuildMessageTextBookmark */ = 5B40601F10FA064B0085BEF3 /* XCBuildMessageTextBookmark */;
+			5B40602010FA064B0085BEF3 /* PBXTextBookmark */ = 5B40602010FA064B0085BEF3 /* PBXTextBookmark */;
+			5B40602310FA06500085BEF3 /* PBXTextBookmark */ = 5B40602310FA06500085BEF3 /* PBXTextBookmark */;
+			5B40602410FA06500085BEF3 /* XCBuildMessageTextBookmark */ = 5B40602410FA06500085BEF3 /* XCBuildMessageTextBookmark */;
+			5B40602510FA06500085BEF3 /* PBXTextBookmark */ = 5B40602510FA06500085BEF3 /* PBXTextBookmark */;
+			5B40602910FA065D0085BEF3 /* PBXTextBookmark */ = 5B40602910FA065D0085BEF3 /* PBXTextBookmark */;
+			5B40602B10FA06930085BEF3 /* PBXTextBookmark */ = 5B40602B10FA06930085BEF3 /* PBXTextBookmark */;
+			5B40603010FA0CAC0085BEF3 /* PBXTextBookmark */ = 5B40603010FA0CAC0085BEF3 /* PBXTextBookmark */;
+			5BA9606B10F9CAE2005F0186 = 5BA9606B10F9CAE2005F0186 /* PBXTextBookmark */;
+			5BA9606D10F9CAE2005F0186 = 5BA9606D10F9CAE2005F0186 /* PBXTextBookmark */;
+			5BA960E510F9E890005F0186 = 5BA960E510F9E890005F0186 /* PBXTextBookmark */;
+			5BA960E610F9E890005F0186 = 5BA960E610F9E890005F0186 /* PlistBookmark */;
+			5BA9610710F9EA62005F0186 = 5BA9610710F9EA62005F0186 /* PBXTextBookmark */;
+			5BA9610810F9EA62005F0186 = 5BA9610810F9EA62005F0186 /* PBXTextBookmark */;
+			5BA9610B10F9EF76005F0186 = 5BA9610B10F9EF76005F0186 /* PBXTextBookmark */;
+		};
+		sourceControlManager = 5BA9601610F9A6D5005F0186 /* Source Control */;
+		userBuildSettings = {
+		};
+	};
+	29B97316FDCFA39411CA2CEA /* main.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {656, 487}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 247}";
+		};
+	};
+	5B405FF510FA057D0085BEF3 /* XCBuildMessageTextBookmark */ = {
+		isa = PBXTextBookmark;
+		comments = "#error 64-bit not supported";
+		fRef = 5B405FF610FA057D0085BEF3 /* objc.h */;
+		fallbackIsa = XCBuildMessageTextBookmark;
+		rLen = 1;
+		rLoc = 33;
+		rType = 1;
+	};
+	5B405FF610FA057D0085BEF3 /* objc.h */ = {
+		isa = PBXFileReference;
+		name = objc.h;
+		path = /Developer/SDKs/MacOSX10.4u.sdk/usr/include/objc/objc.h;
+		sourceTree = "<absolute>";
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {656, 1196}}";
+			sepNavSelRange = "{1173, 0}";
+			sepNavVisRange = "{0, 1294}";
+		};
+	};
+	5B405FF710FA057D0085BEF3 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 5B405FF810FA057D0085BEF3 /* objc.h */;
+		name = "objc.h: 34";
+		rLen = 0;
+		rLoc = 1173;
+		rType = 0;
+		vrLen = 297;
+		vrLoc = 908;
+	};
+	5B405FF810FA057D0085BEF3 /* objc.h */ = {
+		isa = PBXFileReference;
+		name = objc.h;
+		path = /Developer/SDKs/MacOSX10.4u.sdk/usr/include/objc/objc.h;
+		sourceTree = "<absolute>";
+	};
+	5B405FFE10FA05A60085BEF3 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 5B405FF610FA057D0085BEF3 /* objc.h */;
+		name = "objc.h: 34";
+		rLen = 0;
+		rLoc = 1173;
+		rType = 0;
+		vrLen = 297;
+		vrLoc = 908;
+	};
+	5B405FFF10FA05A60085BEF3 /* XCBuildMessageTextBookmark */ = {
+		isa = PBXTextBookmark;
+		comments = "Mac OS X version 10.5 or later is needed for use of property";
+		fRef = 256AC3D80F4B6AC300CF3369 /* SSHFS_GUIAppDelegate.h */;
+		fallbackIsa = XCBuildMessageTextBookmark;
+		rLen = 1;
+		rLoc = 28;
+		rType = 1;
+	};
+	5B40600010FA05A60085BEF3 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 256AC3D80F4B6AC300CF3369 /* SSHFS_GUIAppDelegate.h */;
+		name = "SSHFS_GUIAppDelegate.h: 24";
+		rLen = 0;
+		rLoc = 595;
+		rType = 0;
+		vrLen = 340;
+		vrLoc = 321;
+	};
+	5B40600910FA05B80085BEF3 /* XCBuildMessageTextBookmark */ = {
+		isa = PBXTextBookmark;
+		comments = "Cannot find protocol declaration for 'NSApplicationDelegate'";
+		fRef = 256AC3D80F4B6AC300CF3369 /* SSHFS_GUIAppDelegate.h */;
+		fallbackIsa = XCBuildMessageTextBookmark;
+		rLen = 1;
+		rLoc = 15;
+		rType = 1;
+	};
+	5B40600A10FA05B80085BEF3 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 256AC3D80F4B6AC300CF3369 /* SSHFS_GUIAppDelegate.h */;
+		name = "SSHFS_GUIAppDelegate.h: 11";
+		rLen = 0;
+		rLoc = 349;
+		rType = 0;
+		vrLen = 373;
+		vrLoc = 30;
+	};
+	5B40600D10FA06180085BEF3 /* XCBuildMessageTextBookmark */ = {
+		isa = PBXTextBookmark;
+		comments = "Cannot find protocol declaration for 'NSApplicationDelegate' in /Users/yuriy/projects/SSHFS GUI/SSHFS_GUIAppDelegate.h";
+		fRef = 256AC3D80F4B6AC300CF3369 /* SSHFS_GUIAppDelegate.h */;
+		fallbackIsa = XCBuildMessageTextBookmark;
+		rLen = 1;
+		rLoc = 15;
+		rType = 1;
+	};
+	5B40600E10FA06180085BEF3 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 256AC3D80F4B6AC300CF3369 /* SSHFS_GUIAppDelegate.h */;
+		name = "SSHFS_GUIAppDelegate.h: 11";
+		rLen = 0;
+		rLoc = 349;
+		rType = 0;
+		vrLen = 373;
+		vrLoc = 30;
+	};
+	5B40601110FA06340085BEF3 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 29B97316FDCFA39411CA2CEA /* main.m */;
+		name = "main.m: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 247;
+		vrLoc = 0;
+	};
+	5B40601210FA06340085BEF3 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 256AC3D90F4B6AC300CF3369 /* SSHFS_GUIAppDelegate.m */;
+		name = "SSHFS_GUIAppDelegate.m: 120";
+		rLen = 0;
+		rLoc = 3744;
+		rType = 0;
+		vrLen = 1571;
+		vrLoc = 1441;
+	};
+	5B40601310FA06340085BEF3 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 5B405FF610FA057D0085BEF3 /* objc.h */;
+		name = "objc.h: 34";
+		rLen = 0;
+		rLoc = 1173;
+		rType = 0;
+		vrLen = 1294;
+		vrLoc = 0;
+	};
+	5B40601410FA06340085BEF3 /* XCBuildMessageTextBookmark */ = {
+		isa = PBXTextBookmark;
+		comments = "Cannot find protocol declaration for 'NSApplicationDelegate'";
+		fRef = 256AC3D80F4B6AC300CF3369 /* SSHFS_GUIAppDelegate.h */;
+		fallbackIsa = XCBuildMessageTextBookmark;
+		rLen = 1;
+		rLoc = 15;
+		rType = 1;
+	};
+	5B40601510FA06340085BEF3 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 256AC3D80F4B6AC300CF3369 /* SSHFS_GUIAppDelegate.h */;
+		name = "SSHFS_GUIAppDelegate.h: 16";
+		rLen = 0;
+		rLoc = 351;
+		rType = 0;
+		vrLen = 777;
+		vrLoc = 0;
+	};
+	5B40601E10FA064B0085BEF3 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 256AC3D80F4B6AC300CF3369 /* SSHFS_GUIAppDelegate.h */;
+		name = "SSHFS_GUIAppDelegate.h: 16";
+		rLen = 0;
+		rLoc = 351;
+		rType = 0;
+		vrLen = 348;
+		vrLoc = 30;
+	};
+	5B40601F10FA064B0085BEF3 /* XCBuildMessageTextBookmark */ = {
+		isa = PBXTextBookmark;
+		comments = "No declaration of property 'window' found in the interface";
+		fRef = 256AC3D90F4B6AC300CF3369 /* SSHFS_GUIAppDelegate.m */;
+		fallbackIsa = XCBuildMessageTextBookmark;
+		rLen = 1;
+		rLoc = 18;
+		rType = 1;
+	};
+	5B40602010FA064B0085BEF3 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 256AC3D90F4B6AC300CF3369 /* SSHFS_GUIAppDelegate.m */;
+		name = "SSHFS_GUIAppDelegate.m: 19";
+		rLen = 0;
+		rLoc = 321;
+		rType = 0;
+		vrLen = 333;
+		vrLoc = 181;
+	};
+	5B40602310FA06500085BEF3 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 256AC3D80F4B6AC300CF3369 /* SSHFS_GUIAppDelegate.h */;
+		name = "SSHFS_GUIAppDelegate.h: 29";
+		rLen = 0;
+		rLoc = 595;
+		rType = 0;
+		vrLen = 781;
+		vrLoc = 0;
+	};
+	5B40602410FA06500085BEF3 /* XCBuildMessageTextBookmark */ = {
+		isa = PBXTextBookmark;
+		comments = "No declaration of property 'window' found in the interface";
+		fRef = 256AC3D90F4B6AC300CF3369 /* SSHFS_GUIAppDelegate.m */;
+		fallbackIsa = XCBuildMessageTextBookmark;
+		rLen = 1;
+		rLoc = 18;
+		rType = 1;
+	};
+	5B40602510FA06500085BEF3 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 256AC3D90F4B6AC300CF3369 /* SSHFS_GUIAppDelegate.m */;
+		name = "SSHFS_GUIAppDelegate.m: 19";
+		rLen = 0;
+		rLoc = 321;
+		rType = 0;
+		vrLen = 852;
+		vrLoc = 0;
+	};
+	5B40602910FA065D0085BEF3 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 256AC3D90F4B6AC300CF3369 /* SSHFS_GUIAppDelegate.m */;
+		name = "SSHFS_GUIAppDelegate.m: 19";
+		rLen = 0;
+		rLoc = 321;
+		rType = 0;
+		vrLen = 852;
+		vrLoc = 0;
+	};
+	5B40602B10FA06930085BEF3 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 256AC3D90F4B6AC300CF3369 /* SSHFS_GUIAppDelegate.m */;
+		name = "SSHFS_GUIAppDelegate.m: 129";
+		rLen = 0;
+		rLoc = 4179;
+		rType = 0;
+		vrLen = 961;
+		vrLoc = 0;
+	};
+	5B40603010FA0CAC0085BEF3 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 256AC3D90F4B6AC300CF3369 /* SSHFS_GUIAppDelegate.m */;
+		name = "SSHFS_GUIAppDelegate.m: 129";
+		rLen = 0;
+		rLoc = 4179;
+		rType = 0;
+		vrLen = 961;
+		vrLoc = 0;
+	};
+	5BA95FF910F9A6CD005F0186 /* SSHFS GUI */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		dylibVariantSuffix = "";
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = "SSHFS GUI";
+		savedGlobals = {
+		};
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+	};
+	5BA9601610F9A6D5005F0186 /* Source Control */ = {
+		isa = PBXSourceControlManager;
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 0;
+		scmConfiguration = {
+			repositoryNamesForRoots = {
+				"" = "sshfs-gui.googlecode.com";
+			};
+		};
+	};
+	5BA9601710F9A6D5005F0186 /* Code sense */ = {
+		isa = PBXCodeSenseManager;
+		indexTemplatePath = "";
+	};
+	5BA9606B10F9CAE2005F0186 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 256AC3F00F4B6AF500CF3369 /* SSHFS_GUI_Prefix.pch */;
+		name = "SSHFS_GUI_Prefix.pch: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 149;
+		vrLoc = 0;
+	};
+	5BA9606D10F9CAE2005F0186 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 29B97316FDCFA39411CA2CEA /* main.m */;
+		name = "main.m: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 247;
+		vrLoc = 0;
+	};
+	5BA960E510F9E890005F0186 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 089C165DFE840E0CC02AAC07 /* English */;
+		name = "InfoPlist.strings: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 45;
+		vrLoc = 0;
+	};
+	5BA960E610F9E890005F0186 /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 8D1107310486CEB800E47090 /* SSHFS_GUI-Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+			CFBundleIconFile,
+		);
+		name = "/Users/yuriy/projects/SSHFS GUI/SSHFS_GUI-Info.plist";
+		rLen = 0;
+		rLoc = 9223372036854775808;
+	};
+	5BA9610710F9EA62005F0186 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 256AC3D90F4B6AC300CF3369 /* SSHFS_GUIAppDelegate.m */;
+		name = "SSHFS_GUIAppDelegate.m: 120";
+		rLen = 0;
+		rLoc = 3744;
+		rType = 0;
+		vrLen = 1549;
+		vrLoc = 2703;
+	};
+	5BA9610810F9EA62005F0186 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		comments = "Cannot find protocol declaration for 'NSApplicationDelegate'";
+		fRef = 256AC3D80F4B6AC300CF3369 /* SSHFS_GUIAppDelegate.h */;
+		rLen = 1;
+		rLoc = 15;
+		rType = 1;
+	};
+	5BA9610B10F9EF76005F0186 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 256AC3D80F4B6AC300CF3369 /* SSHFS_GUIAppDelegate.h */;
+		name = "SSHFS_GUIAppDelegate.h: 11";
+		rLen = 0;
+		rLoc = 349;
+		rType = 0;
+		vrLen = 661;
+		vrLoc = 0;
+	};
+	8D1107260486CEB800E47090 /* SSHFS GUI */ = {
+		activeExec = 0;
+		executables = (
+			5BA95FF910F9A6CD005F0186 /* SSHFS GUI */,
+		);
+	};
+}

@@ -1,0 +1,196 @@
+TSSHFS GUI
+v7
+r0
+t284796629.486982
+cCheck dependencies
+cProcessInfoPlistFile "/Users/yuriy/projects/SSHFS GUI/build/Debug/SSHFS GUI.app/Contents/Info.plist" SSHFS_GUI-Info.plist
+cCopyStringsFile "/Users/yuriy/projects/SSHFS GUI/build/Debug/SSHFS GUI.app/Contents/Resources/English.lproj/InfoPlist.strings" English.lproj/InfoPlist.strings
+cCompileXIB "/Users/yuriy/projects/SSHFS GUI/English.lproj/MainMenu.xib"
+cProcessPCH /var/folders/qc/qcU-FO2kFlCaWOT7yyUwL++++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/SSHFS_GUI_Prefix-feldfucptdnhhahbdhbjfcylpygu/SSHFS_GUI_Prefix.pch.gch SSHFS_GUI_Prefix.pch normal x86_64 objective-c com.apple.compilers.gcc.4_2
+cCompileC "build/SSHFS GUI.build/Debug/SSHFS GUI.build/Objects-normal/x86_64/main.o" "/Users/yuriy/projects/SSHFS GUI/main.m" normal x86_64 objective-c com.apple.compilers.gcc.4_2
+cCompileC "build/SSHFS GUI.build/Debug/SSHFS GUI.build/Objects-normal/x86_64/SSHFS_GUIAppDelegate.o" "/Users/yuriy/projects/SSHFS GUI/SSHFS_GUIAppDelegate.m" normal x86_64 objective-c com.apple.compilers.gcc.4_2
+cLd "/Users/yuriy/projects/SSHFS GUI/build/Debug/SSHFS GUI.app/Contents/MacOS/SSHFS GUI" normal x86_64
+cTouch "/Users/yuriy/projects/SSHFS GUI/build/Debug/SSHFS GUI.app"
+
+N/Developer/SDKs/MacOSX10.6.sdk
+c000000004A769DAB00000000000000EE
+t1249287595
+s238
+
+N/Developer/SDKs/MacOSX10.6.sdk/System/Library/Frameworks/Cocoa.framework/Headers/Cocoa.h
+c0000000040C4AA6800000000000001E5
+t1086630504
+s485
+
+N/System/Library/Frameworks/Cocoa.framework/Cocoa
+c000000004A1F2D63000000000000A5E0
+t1243557219
+s42464
+
+N/Users/yuriy/projects/SSHFS GUI/English.lproj/InfoPlist.strings
+c000000004B496F4D000000000000002D
+t1263103821
+s45
+
+N/Users/yuriy/projects/SSHFS GUI/English.lproj/MainMenu.xib
+c000000004B496F4D000000000002BB81
+t1263103821
+s179073
+
+N/Users/yuriy/projects/SSHFS GUI/SSHFS_GUIAppDelegate.h
+c000000004B496F4D000000000000014C
+t1263103821
+s332
+i<Cocoa/Cocoa.h>
+
+N/Users/yuriy/projects/SSHFS GUI/SSHFS_GUIAppDelegate.m
+c000000004B496F4D0000000000000183
+t1263103821
+s387
+i"SSHFS_GUIAppDelegate.h"
+
+N/Users/yuriy/projects/SSHFS GUI/SSHFS_GUI_Prefix.pch
+c000000004B496F4D0000000000000095
+t1263103821
+s149
+i<Cocoa/Cocoa.h>
+
+N/Users/yuriy/projects/SSHFS GUI/build/Debug/SSHFS GUI.app
+t1263103829
+s102
+
+N/Users/yuriy/projects/SSHFS GUI/build/Debug/SSHFS GUI.app/Contents/Info.plist
+t1263103826
+s892
+
+N/Users/yuriy/projects/SSHFS GUI/build/Debug/SSHFS GUI.app/Contents/MacOS/SSHFS GUI
+t1263103829
+s14520
+
+N/Users/yuriy/projects/SSHFS GUI/build/Debug/SSHFS GUI.app/Contents/PkgInfo
+t1263103826
+s8
+
+N/Users/yuriy/projects/SSHFS GUI/build/Debug/SSHFS GUI.app/Contents/Resources/English.lproj/InfoPlist.strings
+t1263103826
+s92
+
+N/Users/yuriy/projects/SSHFS GUI/build/Debug/SSHFS GUI.app/Contents/Resources/English.lproj/MainMenu.nib
+t1263103826
+s34401
+
+N/Users/yuriy/projects/SSHFS GUI/build/SSHFS GUI.build/Debug/SSHFS GUI.build/Objects-normal/x86_64/SSHFS GUI.LinkFileList
+c000000004B496F5200000000000000E2
+t1263103826
+s226
+
+N/Users/yuriy/projects/SSHFS GUI/build/SSHFS GUI.build/Debug/SSHFS GUI.build/Objects-normal/x86_64/SSHFS_GUIAppDelegate.o
+t1263103829
+s21144
+
+N/Users/yuriy/projects/SSHFS GUI/build/SSHFS GUI.build/Debug/SSHFS GUI.build/Objects-normal/x86_64/main.o
+t1263103829
+s4984
+
+N/Users/yuriy/projects/SSHFS GUI/main.m
+c000000004B496F4D000000000000010A
+t1263103821
+s266
+i<Cocoa/Cocoa.h>
+
+N/var/folders/qc/qcU-FO2kFlCaWOT7yyUwL++++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/SSHFS_GUI_Prefix-feldfucptdnhhahbdhbjfcylpygu/SSHFS_GUI_Prefix.pch.gch
+t1263103829
+s54212368
+
+NSSHFS_GUI-Info.plist
+c000000004B496F4D00000000000003EA
+t1263103821
+s1002
+
+CCheck dependencies
+r0
+lSLF07#2@18"Check dependencies284796626#284796626#0(0"0(0#1#0"7947009927035180032#0"0#
+
+CCompileC "build/SSHFS GUI.build/Debug/SSHFS GUI.build/Objects-normal/x86_64/SSHFS_GUIAppDelegate.o" "/Users/yuriy/projects/SSHFS GUI/SSHFS_GUIAppDelegate.m" normal x86_64 objective-c com.apple.compilers.gcc.4_2
+s284796629.189068
+e284796629.381827
+r1
+xCompileC
+xbuild/SSHFS GUI.build/Debug/SSHFS GUI.build/Objects-normal/x86_64/SSHFS_GUIAppDelegate.o
+x/Users/yuriy/projects/SSHFS GUI/SSHFS_GUIAppDelegate.m
+xnormal
+xx86_64
+xobjective-c
+xcom.apple.compilers.gcc.4_2
+lSLF07#2@62"Compile /Users/yuriy/projects/SSHFS GUI/SSHFS_GUIAppDelegate.m284796629#284796629#0(0"0(0#0#54"/Users/yuriy/projects/SSHFS GUI/SSHFS_GUIAppDelegate.m4300885448#1467"    cd "/Users/yuriy/projects/SSHFS GUI"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/gcc-4.2 -x objective-c -arch x86_64 -fmessage-length=0 -pipe -std=gnu99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/SDKs/MacOSX10.6.sdk -mfix-and-continue -mmacosx-version-min=10.6 -gdwarf-2 -iquote "/Users/yuriy/projects/SSHFS GUI/build/SSHFS GUI.build/Debug/SSHFS GUI.build/SSHFS GUI-generated-files.hmap" "-I/Users/yuriy/projects/SSHFS GUI/build/SSHFS GUI.build/Debug/SSHFS GUI.build/SSHFS GUI-own-target-headers.hmap" "-I/Users/yuriy/projects/SSHFS GUI/build/SSHFS GUI.build/Debug/SSHFS GUI.build/SSHFS GUI-all-target-headers.hmap" -iquote "/Users/yuriy/projects/SSHFS GUI/build/SSHFS GUI.build/Debug/SSHFS GUI.build/SSHFS GUI-project-headers.hmap" "-F/Users/yuriy/projects/SSHFS GUI/build/Debug" "-I/Users/yuriy/projects/SSHFS GUI/build/Debug/include" "-I/Users/yuriy/projects/SSHFS GUI/build/SSHFS GUI.build/Debug/SSHFS GUI.build/DerivedSources/x86_64" "-I/Users/yuriy/projects/SSHFS GUI/build/SSHFS GUI.build/Debug/SSHFS GUI.build/DerivedSources" -include /var/folders/qc/qcU-FO2kFlCaWOT7yyUwL++++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/SSHFS_GUI_Prefix-feldfucptdnhhahbdhbjfcylpygu/SSHFS_GUI_Prefix.pch -c "/Users/yuriy/projects/SSHFS GUI/SSHFS_GUIAppDelegate.m" -o "/Users/yuriy/projects/SSHFS GUI/build/SSHFS GUI.build/Debug/SSHFS GUI.build/Objects-normal/x86_64/SSHFS_GUIAppDelegate.o"0#
+
+CCompileC "build/SSHFS GUI.build/Debug/SSHFS GUI.build/Objects-normal/x86_64/main.o" "/Users/yuriy/projects/SSHFS GUI/main.m" normal x86_64 objective-c com.apple.compilers.gcc.4_2
+s284796629.188027
+e284796629.347266
+r1
+xCompileC
+xbuild/SSHFS GUI.build/Debug/SSHFS GUI.build/Objects-normal/x86_64/main.o
+x/Users/yuriy/projects/SSHFS GUI/main.m
+xnormal
+xx86_64
+xobjective-c
+xcom.apple.compilers.gcc.4_2
+lSLF07#2@46"Compile /Users/yuriy/projects/SSHFS GUI/main.m284796629#284796629#0(0"0(0#0#38"/Users/yuriy/projects/SSHFS GUI/main.m4300885448#1435"    cd "/Users/yuriy/projects/SSHFS GUI"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/gcc-4.2 -x objective-c -arch x86_64 -fmessage-length=0 -pipe -std=gnu99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/SDKs/MacOSX10.6.sdk -mfix-and-continue -mmacosx-version-min=10.6 -gdwarf-2 -iquote "/Users/yuriy/projects/SSHFS GUI/build/SSHFS GUI.build/Debug/SSHFS GUI.build/SSHFS GUI-generated-files.hmap" "-I/Users/yuriy/projects/SSHFS GUI/build/SSHFS GUI.build/Debug/SSHFS GUI.build/SSHFS GUI-own-target-headers.hmap" "-I/Users/yuriy/projects/SSHFS GUI/build/SSHFS GUI.build/Debug/SSHFS GUI.build/SSHFS GUI-all-target-headers.hmap" -iquote "/Users/yuriy/projects/SSHFS GUI/build/SSHFS GUI.build/Debug/SSHFS GUI.build/SSHFS GUI-project-headers.hmap" "-F/Users/yuriy/projects/SSHFS GUI/build/Debug" "-I/Users/yuriy/projects/SSHFS GUI/build/Debug/include" "-I/Users/yuriy/projects/SSHFS GUI/build/SSHFS GUI.build/Debug/SSHFS GUI.build/DerivedSources/x86_64" "-I/Users/yuriy/projects/SSHFS GUI/build/SSHFS GUI.build/Debug/SSHFS GUI.build/DerivedSources" -include /var/folders/qc/qcU-FO2kFlCaWOT7yyUwL++++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/SSHFS_GUI_Prefix-feldfucptdnhhahbdhbjfcylpygu/SSHFS_GUI_Prefix.pch -c "/Users/yuriy/projects/SSHFS GUI/main.m" -o "/Users/yuriy/projects/SSHFS GUI/build/SSHFS GUI.build/Debug/SSHFS GUI.build/Objects-normal/x86_64/main.o"0#
+
+CCompileXIB "/Users/yuriy/projects/SSHFS GUI/English.lproj/MainMenu.xib"
+s284796626.471564
+e284796626.789020
+r1
+xCompileXIB
+x/Users/yuriy/projects/SSHFS GUI/English.lproj/MainMenu.xib
+lSLF07#2@37"CompileXIB English.lproj/MainMenu.xib284796626#284796626#0(0"0(0#0#58"/Users/yuriy/projects/SSHFS GUI/English.lproj/MainMenu.xib4300885448#314"    cd "/Users/yuriy/projects/SSHFS GUI"    /Developer/usr/bin/ibtool --errors --warnings --notices --output-format human-readable-text --compile "/Users/yuriy/projects/SSHFS GUI/build/Debug/SSHFS GUI.app/Contents/Resources/English.lproj/MainMenu.nib" "/Users/yuriy/projects/SSHFS GUI/English.lproj/MainMenu.xib"0#
+
+CCopyStringsFile "/Users/yuriy/projects/SSHFS GUI/build/Debug/SSHFS GUI.app/Contents/Resources/English.lproj/InfoPlist.strings" English.lproj/InfoPlist.strings
+s284796626.469806
+e284796626.517649
+r1
+xCopyStringsFile
+x/Users/yuriy/projects/SSHFS GUI/build/Debug/SSHFS GUI.app/Contents/Resources/English.lproj/InfoPlist.strings
+xEnglish.lproj/InfoPlist.strings
+lSLF07#2@36"Copy English.lproj/InfoPlist.strings284796626#284796626#0(0"0(0#0#63"/Users/yuriy/projects/SSHFS GUI/English.lproj/InfoPlist.strings4300885448#357"    cd "/Users/yuriy/projects/SSHFS GUI"    setenv ICONV /usr/bin/iconv    /Developer/Library/Xcode/Plug-ins/CoreBuildTasks.xcplugin/Contents/Resources/copystrings --validate --inputencoding utf-8 --outputencoding UTF-16 English.lproj/InfoPlist.strings --outdir "/Users/yuriy/projects/SSHFS GUI/build/Debug/SSHFS GUI.app/Contents/Resources/English.lproj"0#
+
+CLd "/Users/yuriy/projects/SSHFS GUI/build/Debug/SSHFS GUI.app/Contents/MacOS/SSHFS GUI" normal x86_64
+s284796629.381915
+e284796629.484861
+r1
+xLd
+x/Users/yuriy/projects/SSHFS GUI/build/Debug/SSHFS GUI.app/Contents/MacOS/SSHFS GUI
+xnormal
+xx86_64
+lSLF07#2@87"Link /Users/yuriy/projects/SSHFS GUI/build/Debug/SSHFS GUI.app/Contents/MacOS/SSHFS GUI284796629#284796629#0(0"0(0#0#0"4300885448#527"    cd "/Users/yuriy/projects/SSHFS GUI"    setenv MACOSX_DEPLOYMENT_TARGET 10.6    /Developer/usr/bin/gcc-4.2 -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.6.sdk "-L/Users/yuriy/projects/SSHFS GUI/build/Debug" "-F/Users/yuriy/projects/SSHFS GUI/build/Debug" -filelist "/Users/yuriy/projects/SSHFS GUI/build/SSHFS GUI.build/Debug/SSHFS GUI.build/Objects-normal/x86_64/SSHFS GUI.LinkFileList" -mmacosx-version-min=10.6 -framework Cocoa -o "/Users/yuriy/projects/SSHFS GUI/build/Debug/SSHFS GUI.app/Contents/MacOS/SSHFS GUI"0#
+
+CProcessInfoPlistFile "/Users/yuriy/projects/SSHFS GUI/build/Debug/SSHFS GUI.app/Contents/Info.plist" SSHFS_GUI-Info.plist
+s284796626.464207
+e284796626.469707
+r1
+xProcessInfoPlistFile
+x/Users/yuriy/projects/SSHFS GUI/build/Debug/SSHFS GUI.app/Contents/Info.plist
+xSSHFS_GUI-Info.plist
+lSLF07#2@28"Process SSHFS_GUI-Info.plist284796626#284796626#0(0"0(0#0#52"/Users/yuriy/projects/SSHFS GUI/SSHFS_GUI-Info.plist13229804949078112#301"    cd "/Users/yuriy/projects/SSHFS GUI"    builtin-infoPlistUtility SSHFS_GUI-Info.plist -genpkginfo "/Users/yuriy/projects/SSHFS GUI/build/Debug/SSHFS GUI.app/Contents/PkgInfo" -expandbuildsettings -platform macosx -o "/Users/yuriy/projects/SSHFS GUI/build/Debug/SSHFS GUI.app/Contents/Info.plist"0#
+
+CProcessPCH /var/folders/qc/qcU-FO2kFlCaWOT7yyUwL++++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/SSHFS_GUI_Prefix-feldfucptdnhhahbdhbjfcylpygu/SSHFS_GUI_Prefix.pch.gch SSHFS_GUI_Prefix.pch normal x86_64 objective-c com.apple.compilers.gcc.4_2
+s284796626.789172
+e284796629.187605
+r1
+xProcessPCH
+x/var/folders/qc/qcU-FO2kFlCaWOT7yyUwL++++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/SSHFS_GUI_Prefix-feldfucptdnhhahbdhbjfcylpygu/SSHFS_GUI_Prefix.pch.gch
+xSSHFS_GUI_Prefix.pch
+xnormal
+xx86_64
+xobjective-c
+xcom.apple.compilers.gcc.4_2
+lSLF07#2@31"Precompile SSHFS_GUI_Prefix.pch284796626#284796629#0(0"0(0#0#52"/Users/yuriy/projects/SSHFS GUI/SSHFS_GUI_Prefix.pch4300885448#1344"    cd "/Users/yuriy/projects/SSHFS GUI"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/gcc-4.2 -x objective-c-header -arch x86_64 -fmessage-length=0 -pipe -std=gnu99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/SDKs/MacOSX10.6.sdk -mfix-and-continue -mmacosx-version-min=10.6 -gdwarf-2 -iquote "/Users/yuriy/projects/SSHFS GUI/build/SSHFS GUI.build/Debug/SSHFS GUI.build/SSHFS GUI-generated-files.hmap" "-I/Users/yuriy/projects/SSHFS GUI/build/SSHFS GUI.build/Debug/SSHFS GUI.build/SSHFS GUI-own-target-headers.hmap" "-I/Users/yuriy/projects/SSHFS GUI/build/SSHFS GUI.build/Debug/SSHFS GUI.build/SSHFS GUI-all-target-headers.hmap" -iquote "/Users/yuriy/projects/SSHFS GUI/build/SSHFS GUI.build/Debug/SSHFS GUI.build/SSHFS GUI-project-headers.hmap" "-F/Users/yuriy/projects/SSHFS GUI/build/Debug" "-I/Users/yuriy/projects/SSHFS GUI/build/Debug/include" "-I/Users/yuriy/projects/SSHFS GUI/build/SSHFS GUI.build/Debug/SSHFS GUI.build/DerivedSources/x86_64" "-I/Users/yuriy/projects/SSHFS GUI/build/SSHFS GUI.build/Debug/SSHFS GUI.build/DerivedSources" -c "/Users/yuriy/projects/SSHFS GUI/SSHFS_GUI_Prefix.pch" -o /var/folders/qc/qcU-FO2kFlCaWOT7yyUwL++++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/SSHFS_GUI_Prefix-feldfucptdnhhahbdhbjfcylpygu/SSHFS_GUI_Prefix.pch.gch0#
+
+CTouch "/Users/yuriy/projects/SSHFS GUI/build/Debug/SSHFS GUI.app"
+s284796629.484937
+e284796629.486949
+r1
+xTouch
+x/Users/yuriy/projects/SSHFS GUI/build/Debug/SSHFS GUI.app
+lSLF07#2@63"Touch /Users/yuriy/projects/SSHFS GUI/build/Debug/SSHFS GUI.app284796629#284796629#0(0"0(0#0#0"4300885448#123"    cd "/Users/yuriy/projects/SSHFS GUI"    /usr/bin/touch -c "/Users/yuriy/projects/SSHFS GUI/build/Debug/SSHFS GUI.app"0#
+
