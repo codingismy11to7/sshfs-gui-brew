@@ -8,11 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-#if (MAC_OS_X_VERSION_MAX_ALLOWED <= MAC_OS_X_VERSION_10_5)
 @interface SSHFS_GUIAppDelegate : NSObject
-#else
-@interface SSHFS_GUIAppDelegate : NSObject <NSApplicationDelegate>
-#endif
 {
     //NSWindow *window;
 	
