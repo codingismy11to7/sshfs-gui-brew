@@ -10,5 +10,14 @@
 
 int main(int argc, char *argv[])
 {
+#ifndef RELEASE
+	
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	
+	unlink( [[@"~/Library/Preferences/org.YNProducts.SSHFS-GUI.plist" stringByExpandingTildeInPath] UTF8String] );
+	
+	[pool release];
+#endif	
+
     return NSApplicationMain(argc,  (const char **) argv);
 }

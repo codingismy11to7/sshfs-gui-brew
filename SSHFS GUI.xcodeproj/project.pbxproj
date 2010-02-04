@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
 		256AC3DA0F4B6AC300CF3369 /* SSHFS_GUIAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 256AC3D90F4B6AC300CF3369 /* SSHFS_GUIAppDelegate.m */; };
+		5B5949C610FF1F2000316BCB /* asker in Resources */ = {isa = PBXBuildFile; fileRef = 5B5949C510FF1F2000316BCB /* asker */; };
+		5B5CBD7210FB267000BD468E /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 5B5CBD7110FB267000BD468E /* icon.icns */; };
+		5BCBED11111A0D1C00C93ECC /* sshfs-static-leopard in Resources */ = {isa = PBXBuildFile; fileRef = 5BCBED10111A0D1C00C93ECC /* sshfs-static-leopard */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -25,6 +28,11 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		5B5949C510FF1F2000316BCB /* asker */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = asker; sourceTree = "<group>"; };
+		5B5949C710FF1F2900316BCB /* asker.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = asker.c; sourceTree = "<group>"; };
+		5B594A7C10FFA6AE00316BCB /* shared.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = shared.h; sourceTree = "<group>"; };
+		5B5CBD7110FB267000BD468E /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
+		5BCBED10111A0D1C00C93ECC /* sshfs-static-leopard */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = "sshfs-static-leopard"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* SSHFS_GUI-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "SSHFS_GUI-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* SSHFS GUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SSHFS GUI.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -91,8 +99,10 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				5B5949C710FF1F2900316BCB /* asker.c */,
 				256AC3F00F4B6AF500CF3369 /* SSHFS_GUI_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
+				5B594A7C10FFA6AE00316BCB /* shared.h */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -100,6 +110,9 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				5BCBED10111A0D1C00C93ECC /* sshfs-static-leopard */,
+				5B5949C510FF1F2000316BCB /* asker */,
+				5B5CBD7110FB267000BD468E /* icon.icns */,
 				8D1107310486CEB800E47090 /* SSHFS_GUI-Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
@@ -123,6 +136,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "SSHFS GUI" */;
 			buildPhases = (
+				5B594A4810FF99F100316BCB /* Compile asker */,
 				8D1107290486CEB800E47090 /* Resources */,
 				8D11072C0486CEB800E47090 /* Sources */,
 				8D11072E0486CEB800E47090 /* Frameworks */,
@@ -161,10 +175,32 @@
 			files = (
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */,
+				5B5CBD7210FB267000BD468E /* icon.icns in Resources */,
+				5B5949C610FF1F2000316BCB /* asker in Resources */,
+				5BCBED11111A0D1C00C93ECC /* sshfs-static-leopard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		5B594A4810FF99F100316BCB /* Compile asker */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/asker.c",
+			);
+			name = "Compile asker";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/asker",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "gcc -arch ppc -o asker.ppc asker.c\ngcc -arch i686 -o asker.i686 asker.c\nlipo -create asker.ppc asker.i686 -output asker\nrm asker.ppc asker.i686";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8D11072C0486CEB800E47090 /* Sources */ = {
@@ -234,14 +270,15 @@
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_VERSION = 4.0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
-				SDKROOT = macosx10.6;
+				SDKROOT = macosx10.5;
 			};
 			name = Debug;
 		};
@@ -250,11 +287,13 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_VERSION = 4.0;
+				GCC_ENABLE_OBJC_GC = supported;
+				GCC_VERSION = "";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				OTHER_CFLAGS = "-DRELEASE";
 				PREBINDING = NO;
-				SDKROOT = macosx10.4;
+				SDKROOT = macosx10.5;
 			};
 			name = Release;
 		};
