@@ -18,6 +18,9 @@
 
 #import "SSHFS_GUIAppDelegate.h"
 
+#import <CoreFoundation/CoreFoundation.h>
+#import <Security/Security.h>
+
 @implementation SSHFS_GUIAppDelegate
 
 @synthesize window;
@@ -52,35 +55,29 @@
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
 	int length, tmp, action;
-	char *str, buf[1025];
+	char *str = "", buf[1025];
 	
 	NSMutableString *msg;
 	
 	// zero or less read bytes probably means that pipe is
 	// broken (it also could mean that read was interrupted
-	// by a signal, but we do not care...)
+	// by a signal, but there are no signals which we would
+	// respond without app termination, so just ignore it)
 	
 	while( read(pipes_read[0], &action, sizeof(action)) > 0 )
 	{
 		switch (action)
 		{
 			case ACTION_ASK_PASSWORD:
-				
-				//printf("ask password\n");
-				
-				str = (char*) [[password stringValue] UTF8String];
+				str = (char*) [[password stringValue] UTF8String]; // even though access to UI elements is not thread-safe, when the connection is initialized, all input fields are explicitly set to read-only, so we are safe at least to READ the values directly from UI elements
 				break;
 			case ACTION_AUTHENTICITY_CHECK:
-				
-				//printf("authenticity check\n");
-				
 				msg = [[NSMutableString alloc] initWithUTF8String:""];
 				
 				read(pipes_read[0], &length, sizeof(length));
 				while( (tmp = read(pipes_read[0], buf, length >= sizeof(buf)-1 ? sizeof(buf)-1 : length)) > 0 )
 				{
 					buf[tmp] = 0;
-					//printf("%s", buf); // ignore the input
 					length -= tmp;
 					
 					[msg appendFormat:@"%s", buf];
@@ -88,21 +85,22 @@
 					if(length <= 0) break;
 				}
 				
-				// it is quite interesting, what will happen if I do so and pass NSMutableString, and which NSAutoreleasePool will accept the allocated memory...
+				// msg is retained by this thread, so it safe to pass NSMutableString and not to worry about some memory going to AutoreleasePool of another thread
 				[self performSelectorOnMainThread:@selector(askMessage:) withObject:msg waitUntilDone:YES];
 				
 				//printf("\n");
 				
-				str = (char*) [msg UTF8String];
+				str = (char*) [msg UTF8String]; // get an autoreleased UTF8String copy of the MutableString
+				
+				[msg release];
+				
 				break;
 		}
 		
-		length = strlen(str); // this might be different from "length" property of a [password stringValue], though it should not in this case
+		length = strlen(str);
 		
 		write(pipes_write[1], &length, sizeof(length));
 		write(pipes_write[1], str, length);
-		
-		
 		
 		[pool release];
 		pool = [[NSAutoreleasePool alloc] init];
@@ -111,38 +109,35 @@
 
 - (void)awakeFromNib
 {
-	//NSLog(@"awakeFromNib\n");
+#ifndef RELEASE
+	NSLog(@"awakeFromNib\n");
+#endif
 	
 	NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
 	
-	/*
+#if 0
+//#ifndef RELEASE
 	 NSDictionary *dict = [def dictionaryRepresentation];
 	 
 	 for(NSString *key in dict)
 	 {
 	 NSLog(@"%@ = %@\n", key, [dict objectForKey:key]);
 	 }
-	 */
+#endif	 
 	
 	NSFileManager *mng = [NSFileManager defaultManager];
 	BOOL wasLaunched = [def boolForKey:@"wasLaunched"];
 	
-	//NSLog(@"wasLaunched = %d\n", wasLaunched);
+#ifndef RELEASE
+	NSLog(@"wasLaunched = %d\n", wasLaunched);
+#endif
 	
 	if(!wasLaunched)
 	{
 		// need to determine, what is installed, and if it is installed
 		// if nothing is installed, show "Nothing found" message and quit
 		
-		FILE *pp = popen("/usr/bin/lsvfs fusefs | /usr/bin/grep fusefs | /usr/bin/wc -l", "r");
-		int fusefs_installed = 0;
-		//BOOL scanfs_success =
-		fscanf(pp, "%d", &fusefs_installed);
-		pclose(pp);
-		
-		//NSLog(@"fusefs_installed = %d, scanf_success = %d\n", fusefs_installed, scanfs_success);
-		
-		if( fusefs_installed )
+		if( [mng fileExistsAtPath:@"/Library/Frameworks/MacFUSE.framework"] )
 		{
 			[def setObject:@"MacFUSE" forKey:@"implementation"];
 		}else if( [mng fileExistsAtPath:@"/Applications/sshfs/bin/mount_sshfs"] )
@@ -162,12 +157,18 @@
 		
 		[def setBool:YES forKey:@"wasLaunched"];
 		
+		[def setBool:YES forKey:@"useKeychain"];
+		
 	}	
 	
 	if(![def stringForKey:@"login"])
 	{
 		[login setStringValue:[NSString stringWithUTF8String:getenv("USER")]];
 	}
+	
+	if(!recentServersDataSource) recentServersDataSource = [[RecentServersProvider alloc] init];
+	
+	[recentServersView setDataSource:recentServersDataSource];
 }
 
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender
@@ -197,6 +198,103 @@
 	return YES;
 }
 
+- (IBAction)removeButtonClicked:(id)sender
+{
+	// TODO: take care about deleting passwords from KeyChain
+	
+	NSInteger rowIndex = [recentServersView selectedRow];
+	if( rowIndex < 0 ) return; // nothing is actually selected...
+	
+	[recentServersDataSource deleteEntryAtIndex:rowIndex];
+	[recentServersView reloadData];
+	
+	if([recentServersView selectedRow] < 0) [removeButton setEnabled:NO];
+}
+
+- (IBAction)cellAction:(id)sender
+{
+	NSInteger rowIndex;
+	
+	if( (rowIndex = [recentServersView selectedRow]) >= 0 )
+	{
+		[removeButton setEnabled:YES];
+		
+		NSString *srv = [recentServersDataSource getEntryAtIndex:rowIndex];
+		NSRange rng;
+		
+		rng = [srv rangeOfString:@":"];
+		 
+		int port = 22;
+		
+		if(rng.location != NSNotFound )
+		{
+			port = [[srv substringFromIndex:rng.location+1] intValue];
+			srv = [srv substringToIndex:rng.location];
+		}
+		 
+		rng = [srv rangeOfString:@"@"];
+		
+		NSString *log  = [srv substringToIndex:rng.location];
+		NSString *host = [srv substringFromIndex:rng.location+1];
+		
+		[login  setStringValue:log];
+		[server setStringValue:(port == 22 ? host : [NSString stringWithFormat:@"%@:%d", host, port])];
+		
+		if([[NSUserDefaults standardUserDefaults] boolForKey:@"useKeychain"])
+		{
+			const char *serverName = [host UTF8String];
+			int serverNameLength = strlen(serverName);
+			
+			const char *accountName = [[login stringValue] UTF8String];
+			int accountNameLength = strlen(accountName);
+			
+			char *path = "/~"; // do you have any other options which would mean a home directory (the directory mounted by SSHFS is by default HOME directory, not root) :)?
+			int pathLength = strlen(path);
+			
+			UInt32 passwordLength;
+			void *passwordData;
+			
+#ifndef RELEASE
+			NSLog(@"Using KeyChain to retrieve password for %s@%s:%d%s", accountName, serverName, port, path);
+#endif
+			
+			OSStatus retVal;
+			
+			if( (retVal = SecKeychainFindInternetPassword(NULL, serverNameLength, serverName, 0, NULL, accountNameLength, accountName, pathLength, path, port, kSecProtocolTypeSSH, kSecAuthenticationTypeDefault, &passwordLength, &passwordData, NULL)) == 0)
+			{
+#ifndef RELEASE				
+				NSLog(@"Found the password in KeyChain");
+#endif
+				
+				// the thing is that passwordData is (void *) and is NOT nul-terminated string,
+				// so in order to use it as a string we need to manually copy it
+				char *passwordStr = (char*)malloc(passwordLength + 1);
+				
+				strncpy(passwordStr, (const char*)passwordData, passwordLength);
+				passwordStr[passwordLength] = 0;
+				
+				SecKeychainItemFreeContent(NULL, passwordData);
+				
+				[password setStringValue:[NSString stringWithUTF8String:passwordStr] ];
+				
+				free(passwordStr);
+				
+			}else
+			{
+#ifndef RELEASE
+				NSLog(@"Could not fetch info from KeyChain, recieved code %d with following explanation: %@", retVal, (NSString*)SecCopyErrorMessageString(retVal, NULL));
+#endif
+			}
+
+			
+		}
+		
+	}else
+	{
+		[removeButton setEnabled:NO];
+	}
+}
+
 - (IBAction)connectButtonClicked:(id)sender
 {
 	[self setConnectingState:YES];
@@ -216,7 +314,7 @@
 	
 	if(pp)
 	{
-		char buf[1025];
+		char buf[22]; // absolute expected maximum for PID length :)
 		
 		while(!feof(pp))
 		{
@@ -233,19 +331,21 @@
 
 - (IBAction)showAboutPanel:(id)sender
 {
-	const char *credits_html = "<div style='font-family: \"Lucida Grande\"; font-size: 10px;' align='center'>by<br><br><b>Yuriy Nasretdinov</b><br><br>Project is located at <br><a href='http://code.google.com/p/sshfs-gui/'>http://code.google.com/p/sshfs-gui/</a></div>";
+	const char *credits_html = "<div style='font-family: \"Lucida Grande\"; font-size: 10px;' align='center'>Project is located at <br><a href='http://code.google.com/p/sshfs-gui/'>http://code.google.com/p/sshfs-gui/</a></div>";
 	
 	NSData *HTML = [[NSData alloc] initWithBytes:credits_html length:strlen(credits_html)];
 	NSAttributedString *credits = [[NSAttributedString alloc] initWithHTML:HTML documentAttributes:NULL];
 	
-	NSString *version = @"1.0.2";
+	
+	NSString *version = @"1.1";
 	NSString *applicationVersion = [NSString stringWithFormat:@"Version %@", version];
 	
 	NSArray *keys = [NSArray arrayWithObjects:@"Credits", @"Version", @"ApplicationVersion", nil];
 	NSArray *objects = [NSArray arrayWithObjects:credits, @"", applicationVersion, nil];
 	NSDictionary *options = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
 	
-	
+	[HTML release];
+	[credits release];
 	
 	[currentApp orderFrontStandardAboutPanelWithOptions:options];
 }
@@ -286,9 +386,12 @@
 {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
+	NSFileManager *mng = [NSFileManager defaultManager];
+	
+	NSAlert *alert;
+	
 	NSString *srv  = [server stringValue];
 	NSString *log  = [login stringValue];
-	NSString *pass = [password stringValue];
 	
 	// cut the port from domain name (can be in form "example.com:port_number")
 	
@@ -304,6 +407,7 @@
 	
 	NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
 	compression = [def boolForKey:@"compression"];
+	useKeychain = [def boolForKey:@"useKeychain"];
 	
 	if( [[def stringForKey:@"implementation"] isEqualToString:@"MacFUSE"] ) implementation = IMPLEMENTATION_MACFUSE;
 	else                                                                    implementation = IMPLEMENTATION_PRQSORG;
@@ -362,12 +466,23 @@
 		errorText = @"Login cannot be empty";
 	}else if([[NSFileManager defaultManager] fileExistsAtPath:mnt_loc])
 	{
-		NSAlert *alert = [NSAlert alertWithMessageText:@"Already mounted" defaultButton:@"Yes" alternateButton:@"No" otherButton:nil informativeTextWithFormat:@"It looks like you have already mounted this volume. If you continue, you might experience undesired side effects, especially if you have just switched the SSHFS implementation.\n\nDo you want to continue?"];
+		alert = [NSAlert alertWithMessageText:@"Already mounted" defaultButton:@"No" alternateButton:@"Yes" otherButton:nil informativeTextWithFormat:@"It looks like you have already mounted this volume. It is strongly recommended to unmount it first.\n\nIf you continue, you might experience undesired side effects, especially if you have just switched the SSHFS implementation.\n\nDo you want to continue?"];
 		
 		int response = [alert runModal];
 		
-		if(response != NSAlertDefaultReturn) canContinue = NO;
+		if(response == NSAlertDefaultReturn) canContinue = NO;
 		shouldSkipConnectionError = YES;
+	}else if(implementation == IMPLEMENTATION_PRQSORG && ![mng fileExistsAtPath:@"/Applications/sshfs/bin/mount_sshfs"])
+	{
+		alert = [NSAlert alertWithMessageText:@"SSHFS console utility missing" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@"You do not seem to have SSHFS console utility from pqrs.org installed.\n\nPlease download and install it either from\nhttp://pqrs.org/macosx/sshfs/\n\nor from SSHFS GUI project at\n\nhttp://code.google.com/p/sshfs-gui/"];
+	
+		[alert runModal];
+		
+		[pool release];
+		
+		[self stopButtonClicked:nil];
+		
+		return;
 	}
 	
 	// if all parameters are correct, we can launch the utility itself
@@ -376,7 +491,7 @@
 	{
 		mkdir([mnt_loc UTF8String], 0755);
 		
-		putenv("DISPLAY="); // need to set something DISPLAY variable in order SSH_ASKPASS to activate
+		if(!getenv("DISPLAY")) putenv("DISPLAY=NONE"); // need to set something DISPLAY variable in order SSH_ASKPASS to activate
 		putenv((char*)[[NSString stringWithFormat:@"SSHFS_PIPES=%d,%d;%d,%d", pipes_write[0], pipes_write[1], pipes_read[0], pipes_read[1]] UTF8String]);
 		putenv((char*)[[NSString stringWithFormat:@"SSH_ASKPASS=%@/Contents/Resources/asker", [[NSBundle mainBundle] bundlePath]] UTF8String]);
 		
@@ -393,22 +508,34 @@
 		{
 			errorText = @"Permission denied. Please verify your login and password.";
 		}
-		
-		if(opcode == 32512 && implementation == IMPLEMENTATION_PRQSORG) // file does not exist
-		{
-			errorText = @"You do not have mount_sshfs utility installed.\n\nPlease go to http://code.google.com/p/sshfs-gui/ and install it.";
-		}
 	}
-	
-	//printf("server: %s, login: %s, password: %s\n", [[server stringValue] UTF8String], [[login stringValue] UTF8String], [[password stringValue] UTF8String]);
-	
-	NSArray *keys = [NSArray arrayWithObjects:@"mountPoint", @"errorText", @"opcode", @"port", @"server", nil];
-	NSArray *objects = [NSArray arrayWithObjects:mnt_loc, errorText, [NSString stringWithFormat:@"%d", opcode], [NSString stringWithFormat:@"%d", port], srv, nil];
-	NSDictionary *dictionary = [NSDictionary dictionaryWithObjects:objects forKeys:keys];
+
+	NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:
+	 mnt_loc,                                   @"mountPoint",
+	 errorText,                                 @"errorText",
+	 [NSString stringWithFormat:@"%d", opcode], @"opcode",
+	 [NSString stringWithFormat:@"%d", port],   @"port",
+	 srv,                                       @"server",
+	nil];
 	
 	[self performSelectorOnMainThread:@selector(finishConnectToServer:) withObject:dictionary waitUntilDone:NO];
 	
 	[pool release];
+}
+
+- (void)killByPattern:(NSString *)patt, ...
+{
+	va_list argumentList;
+	va_start(argumentList, patt);
+	
+	NSString *cmd_patt = [NSString stringWithFormat:@"/bin/kill `/bin/ps -ax | /usr/bin/grep '%@' | /usr/bin/awk '{print $1;}'`", patt];
+	NSString *cmd = [[NSString alloc] initWithFormat:cmd_patt arguments:argumentList];
+	
+	system([cmd UTF8String]);
+	
+	[cmd release];
+	
+	va_end(argumentList);
 }
 
 - (void)finishConnectToServer:(id)dictionary
@@ -424,6 +551,41 @@
 	if(opcode == 0)
 	{
 		system([[NSString stringWithFormat:@"open '%@'", mountPoint] UTF8String]);
+		
+		NSString *serverStr = [NSString stringWithFormat:@"%@@%@%@", [login stringValue], srv, port != 22 ? [NSString stringWithFormat:@":%d", port] : @"" ];
+		
+		[recentServersDataSource addEntry:serverStr];
+		
+		if(useKeychain)
+		{
+			SecKeychainItemRef itemRef;
+			
+			const char *serverName = [srv UTF8String];
+			int serverNameLength = strlen(serverName);
+			
+			const char *accountName = [[login stringValue] UTF8String];
+			int accountNameLength = strlen(accountName);
+			
+			char *path = "/~"; // do you have any other options which would mean a home directory (the directory mounted by SSHFS is by default HOME directory, not root) :)?
+			int pathLength = strlen(path);
+			
+			const char *passwordData = [[password stringValue] UTF8String];
+			int passwordLength = strlen(passwordData);
+			
+			if(SecKeychainFindInternetPassword(NULL, serverNameLength, serverName, 0, NULL, accountNameLength, accountName, pathLength, path, port, kSecProtocolTypeSSH, kSecAuthenticationTypeDefault, NULL, NULL, &itemRef) == 0 /* means all is ok */)
+			{
+				// It is said in documentation that we should use ItemModify if you want to modify content, bla-bla-bla...
+				// You can rewrite this part, so it will use the other "good" approach and send me a patch, if you want
+				SecKeychainItemDelete(itemRef);
+				
+				CFRelease(itemRef);
+			}
+			
+			SecKeychainAddInternetPassword(NULL, serverNameLength, serverName, 0, NULL, accountNameLength, accountName, pathLength, path, port, kSecProtocolTypeSSH, kSecAuthenticationTypeDefault, passwordLength, passwordData, NULL);
+		}
+		
+		[recentServersView reloadData];
+		
 	}else if(opcode != SIGTERM && !shouldSkipConnectionError) // if error code is SIGTERM, this means our app killed the process by ourselves (look at stopButtonClicked: code)
 	{
 		NSAlert *alert = [NSAlert alertWithMessageText:@"Could not connect" defaultButton:nil alternateButton:nil otherButton:nil informativeTextWithFormat:errorText];
@@ -435,16 +597,10 @@
 	{
 		// unfortunately, some processes are left after we terminate all our direct children processes, so we will kill all the rest hanging processes manually
 		
-		switch(implementation)
-		{
-			case IMPLEMENTATION_PRQSORG:
-				system([[NSString stringWithFormat:@"/bin/kill `/bin/ps -ax | /usr/bin/grep '/Applications/sshfs/bin/mount_sshfs -p %d %@@%@' | /usr/bin/awk '{print $1;}'`", port, [login stringValue], srv] UTF8String] );
-				break;
-			case IMPLEMENTATION_MACFUSE:
-				system([[NSString stringWithFormat:@"/bin/kill `/bin/ps -ax | /usr/bin/grep './Contents/Resources/sshfs-static-leopard %@@%@:' | /usr/bin/awk '{print $1;}'`", [login stringValue], srv] UTF8String] );
-				system([[NSString stringWithFormat:@"/bin/kill `/bin/ps -ax | /usr/bin/grep 'ssh .* %@@%@ -s sftp' | /usr/bin/awk '{print $1;}'`", [login stringValue], srv] UTF8String] );
-				break;
-		}
+		if(implementation == IMPLEMENTATION_PRQSORG)      [self killByPattern:@"/Applications/sshfs/bin/mount_sshfs -p %d %@@%@", port, [login stringValue], srv];
+		else if(implementation == IMPLEMENTATION_MACFUSE) [self killByPattern:@"./Contents/Resources/sshfs-static-leopard %@@%@:", [login stringValue], srv];
+		
+		[self killByPattern:@"ssh .* %@@%@ -s sftp", [login stringValue], srv];
 		
 		if(shouldTerminate) [currentApp replyToApplicationShouldTerminate:YES];
 	}

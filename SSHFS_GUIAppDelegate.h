@@ -10,6 +10,8 @@
 
 #import "Foundation/Foundation.h"
 
+#import "RecentServersProvider.h"
+
 #define IMPLEMENTATION_NONE    0
 #define IMPLEMENTATION_MACFUSE 1
 #define IMPLEMENTATION_PRQSORG 2
@@ -27,14 +29,22 @@
 	
 	IBOutlet NSButton *connectButton;
 	IBOutlet NSButton *stopButton;
+	IBOutlet NSButton *removeButton;
+	
+	IBOutlet NSTableView *recentServersView;
 	
 	IBOutlet NSApplication *currentApp;
 	
 	BOOL shouldTerminate;
 	BOOL shouldSkipConnectionError;
 	
+	// shared user defaults cache
 	int implementation;
 	BOOL compression;
+	BOOL useKeychain;
+	// / shared user defaults cache
+	
+	RecentServersProvider *recentServersDataSource;
 	
 	int pipes_read[2], pipes_write[2];
 }
@@ -43,6 +53,9 @@
 
 - (IBAction)connectButtonClicked:(id)sender;
 - (IBAction)stopButtonClicked:(id)sender;
+- (IBAction)removeButtonClicked:(id)sender;
+
+- (IBAction)cellAction:(id)sender;
 
 - (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)theApplication;
 
@@ -52,6 +65,8 @@
 - (void)setConnectingState:(BOOL)connecting;
 - (void)askMessage:(id)msg;
 - (void)passwordTeller;
+
+- (void)killByPattern:(NSString *)patt, ...;
 
 - (void)awakeFromNib;
 
