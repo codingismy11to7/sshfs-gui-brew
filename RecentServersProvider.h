@@ -11,17 +11,15 @@
 
 @interface RecentServersProvider : NSObject {
 	
-	NSUserDefaults *def;
-	
-	NSArray *entries;
+	NSUserDefaults *_def;
 }
 
 - (id)init;
-- (void)release;
+- (void)dealloc;
 
-- (NSString *)getEntryAtIndex:(NSUInteger)rowIndex;
-- (void)addEntry:(NSString *)server;
-- (void)deleteEntryAtIndex:(NSUInteger)rowIndex;
+- (void)addEntryWithServer:(NSString *)server port:(int)port login:(NSString *)login directory:(NSString *)directory cmdOpt:(NSString *)cmdOpt;
+- (NSDictionary *)getDictAtIndex:(NSUInteger)rowIndex;
+- (void)deleteDictAtIndex:(NSUInteger)rowIndex;
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)aTableView;
 - (id)tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex;

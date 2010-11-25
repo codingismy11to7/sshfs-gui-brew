@@ -121,7 +121,7 @@
 	 
 	 for(NSString *key in dict)
 	 {
-	 NSLog(@"%@ = %@\n", key, [dict objectForKey:key]);
+		 NSLog(@"%@ = %@\n", key, [dict objectForKey:key]);
 	 }
 #endif	 
 	
@@ -205,7 +205,7 @@
 	NSInteger rowIndex = [recentServersView selectedRow];
 	if( rowIndex < 0 ) return; // nothing is actually selected...
 	
-	[recentServersDataSource deleteEntryAtIndex:rowIndex];
+	[recentServersDataSource deleteDictAtIndex:rowIndex];
 	[recentServersView reloadData];
 	
 	if([recentServersView selectedRow] < 0) [removeButton setEnabled:NO];
@@ -219,26 +219,20 @@
 	{
 		[removeButton setEnabled:YES];
 		
-		NSString *srv = [recentServersDataSource getEntryAtIndex:rowIndex];
-		NSRange rng;
-		
-		rng = [srv rangeOfString:@":"];
-		 
-		int port = 22;
-		
-		if(rng.location != NSNotFound )
-		{
-			port = [[srv substringFromIndex:rng.location+1] intValue];
-			srv = [srv substringToIndex:rng.location];
-		}
-		 
-		rng = [srv rangeOfString:@"@"];
-		
-		NSString *log  = [srv substringToIndex:rng.location];
-		NSString *host = [srv substringFromIndex:rng.location+1];
+		NSDictionary *row = [recentServersDataSource getDictAtIndex:rowIndex];
+		int port = [[row objectForKey:@"port"] intValue];
+				
+		NSString *log  = [row objectForKey:@"login"];
+		NSString *host = [row objectForKey:@"server"];
 		
 		[login  setStringValue:log];
 		[server setStringValue:(port == 22 ? host : [NSString stringWithFormat:@"%@:%d", host, port])];
+		
+		NSString *remoteDir = [row objectForKey:@"dir"];
+		NSString *arguments = [row objectForKey:@"arguments"];
+		
+		[directory setStringValue:remoteDir];
+		[cmdLineOptions setStringValue:arguments];
 		
 		if([[NSUserDefaults standardUserDefaults] boolForKey:@"useKeychain"])
 		{
@@ -248,7 +242,11 @@
 			const char *accountName = [[login stringValue] UTF8String];
 			int accountNameLength = strlen(accountName);
 			
-			char *path = "/~"; // do you have any other options which would mean a home directory (the directory mounted by SSHFS is by default HOME directory, not root) :)?
+			const char *path;
+			
+			if([remoteDir length] > 0) path = [remoteDir UTF8String];
+			else path = "/~";
+			
 			int pathLength = strlen(path);
 			
 			UInt32 passwordLength;
@@ -268,22 +266,24 @@
 				
 				// the thing is that passwordData is (void *) and is NOT nul-terminated string,
 				// so in order to use it as a string we need to manually copy it
-				char *passwordStr = (char*)malloc(passwordLength + 1);
+				NSString *passValue = [[NSString alloc] initWithBytes:passwordData length:passwordLength encoding:NSUTF8StringEncoding];
 				
-				strncpy(passwordStr, (const char*)passwordData, passwordLength);
-				passwordStr[passwordLength] = 0;
+				[password setStringValue:passValue];
 				
 				SecKeychainItemFreeContent(NULL, passwordData);
-				
-				[password setStringValue:[NSString stringWithUTF8String:passwordStr] ];
-				
-				free(passwordStr);
-				
+				[passValue release];
 			}else
 			{
-#ifndef RELEASE
-				NSLog(@"Could not fetch info from KeyChain, recieved code %d with following explanation: %@", retVal, (NSString*)SecCopyErrorMessageString(retVal, NULL));
+#ifndef RELEASE				
+				NSString *errmsg = (NSString*)SecCopyErrorMessageString(retVal, NULL);
+				
+				NSLog(@"Could not fetch info from KeyChain, recieved code %d with following explanation: %@", retVal, errmsg);
+				
+				[errmsg release];
 #endif
+				
+				[password setStringValue:@""];
+				//[password selectText:nil];
 			}
 
 			
@@ -362,7 +362,7 @@
 {
 	NSMutableString *buf = msg;
 	
-	NSAlert *alert = [NSAlert alertWithMessageText:@"Authenticity check" defaultButton:@"Accept key" alternateButton:@"Dismiss key" otherButton:nil informativeTextWithFormat:buf];
+	NSAlert *alert = [NSAlert alertWithMessageText:@"Authenticity check" defaultButton:@"Accept key" alternateButton:@"Dismiss key" otherButton:nil informativeTextWithFormat:@"%@", buf];
 	
 	int response = [alert runModal];
 	
@@ -417,14 +417,18 @@
 	NSString *mnt_loc = [NSString stringWithFormat:@"/Volumes/%@@%@", log, srv];
 	NSString *cmd;
 	
+	NSString *remote_dir = [directory stringValue];
+	
+	NSString *cmdlnOpt = [cmdLineOptions stringValue];
+	
 	switch(implementation)
 	{
 		case IMPLEMENTATION_PRQSORG:
-			cmd = [NSString stringWithFormat:@"/Applications/sshfs/bin/mount_sshfs -p %d %@@%@ '%@' >%s 2>&1", port, log, srv, mnt_loc, ERR_TMPFILE];
+			cmd = [NSString stringWithFormat:@"/Applications/sshfs/bin/mount_sshfs -p %d %@ '%@@%@:%@' '%@' >%s 2>&1", port, cmdlnOpt, log, srv, remote_dir, mnt_loc, ERR_TMPFILE];
 			break;
 		case IMPLEMENTATION_MACFUSE:
 			chdir( [[[NSBundle mainBundle] bundlePath] UTF8String] );
-			cmd = [NSString stringWithFormat:@"./Contents/Resources/sshfs-static-leopard %@@%@: '%@' -p %d -o workaround=nonodelay -ovolname='%@@%@' -oNumberOfPasswordPrompts=1 -o idmap=user %@ >%s 2>&1", log, srv, mnt_loc, port, log, srv, compression ? @" -C" : @"", ERR_TMPFILE];
+			cmd = [NSString stringWithFormat:@"./Contents/Resources/sshfs-static-leopard '%@@%@:%@' '%@' -p %d %@ -o workaround=nonodelay -ovolname='%@@%@' -oNumberOfPasswordPrompts=1 -o transform_symlinks -o idmap=user %@ >%s 2>&1", log, srv, remote_dir, mnt_loc, port, cmdlnOpt, log, srv, compression ? @" -C" : @"", ERR_TMPFILE];
 			break;
 	}
 	
@@ -516,6 +520,8 @@
 	 [NSString stringWithFormat:@"%d", opcode], @"opcode",
 	 [NSString stringWithFormat:@"%d", port],   @"port",
 	 srv,                                       @"server",
+	 remote_dir,                                @"remote_dir",
+     cmdlnOpt,                                  @"arguments",
 	nil];
 	
 	[self performSelectorOnMainThread:@selector(finishConnectToServer:) withObject:dictionary waitUntilDone:NO];
@@ -548,13 +554,17 @@
 	int port = [[dict valueForKey:@"port"] intValue];
 	NSString *srv = [dict valueForKey:@"server"];
 	
+	NSString *remote_dir = [dict valueForKey:@"remote_dir"];
+	NSString *arguments = [dict valueForKey:@"arguments"];
+	
 	if(opcode == 0)
 	{
 		system([[NSString stringWithFormat:@"open '%@'", mountPoint] UTF8String]);
 		
-		NSString *serverStr = [NSString stringWithFormat:@"%@@%@%@", [login stringValue], srv, port != 22 ? [NSString stringWithFormat:@":%d", port] : @"" ];
+		//NSString *serverStr = [NSString stringWithFormat:@"%@@%@%@", [login stringValue], srv, port != 22 ? [NSString stringWithFormat:@":%d", port] : @"" ];
 		
-		[recentServersDataSource addEntry:serverStr];
+		//[recentServersDataSource addEntry:serverStr];
+		[recentServersDataSource addEntryWithServer:srv port:port login:[login stringValue] directory:remote_dir cmdOpt:arguments];
 		
 		if(useKeychain)
 		{
@@ -566,7 +576,12 @@
 			const char *accountName = [[login stringValue] UTF8String];
 			int accountNameLength = strlen(accountName);
 			
-			char *path = "/~"; // do you have any other options which would mean a home directory (the directory mounted by SSHFS is by default HOME directory, not root) :)?
+			//char *path = "/~"; // do you have any other options which would mean a home directory (the directory mounted by SSHFS is by default HOME directory, not root) :)?
+			const char *path;
+			
+			if([remote_dir length] > 0) path = [remote_dir UTF8String];
+			else path = "/~";
+			
 			int pathLength = strlen(path);
 			
 			const char *passwordData = [[password stringValue] UTF8String];
@@ -581,7 +596,24 @@
 				CFRelease(itemRef);
 			}
 			
-			SecKeychainAddInternetPassword(NULL, serverNameLength, serverName, 0, NULL, accountNameLength, accountName, pathLength, path, port, kSecProtocolTypeSSH, kSecAuthenticationTypeDefault, passwordLength, passwordData, NULL);
+			OSStatus retVal;
+			
+			retVal = SecKeychainAddInternetPassword(NULL, serverNameLength, serverName, 0, NULL, accountNameLength, accountName, pathLength, path, port, kSecProtocolTypeSSH, kSecAuthenticationTypeDefault, passwordLength, passwordData, NULL);
+			
+#ifndef RELEASE			
+			if(retVal != 0)
+			{
+		
+				NSString *errmsg = (NSString*)SecCopyErrorMessageString(retVal, NULL);
+				
+				NSLog(@"Could not store info to KeyChain, recieved code %d with following explanation: %@", retVal, errmsg);
+				
+				[errmsg release];
+
+				
+			}
+#endif
+			
 		}
 		
 		[recentServersView reloadData];

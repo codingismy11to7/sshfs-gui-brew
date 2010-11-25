@@ -13,51 +13,106 @@
 
 - (id)init
 {
-	[super init];
+	NSArray *oldEntries;
+	NSMutableArray *newEntries;
 	
-	def = [[NSUserDefaults standardUserDefaults] retain];
+	NSMutableDictionary *row;
 	
-	if(!(entries = [def objectForKey:@"recentServers"]))
+	self = [super init];
+	
+	_def = [[NSUserDefaults standardUserDefaults] retain];
+	
+	oldEntries = [_def objectForKey:@"recentServers"];
+	
+	if(oldEntries)
 	{
-		entries = [NSArray array];
+		NSString *oldEntry;
 		
-		[def setObject:entries forKey:@"recentServers"];
+		newEntries = [NSMutableArray array];
+		
+		for(int i = 0; i < [oldEntries count]; i++)
+		{
+			oldEntry = [oldEntries objectAtIndex:i];
+			
+			NSString *srv = oldEntry;
+			NSRange rng;
+			
+			rng = [srv rangeOfString:@":"];
+			
+			int port = 22;
+			
+			if(rng.location != NSNotFound )
+			{
+				port = [[srv substringFromIndex:rng.location+1] intValue];
+				srv = [srv substringToIndex:rng.location];
+			}
+			
+			rng = [srv rangeOfString:@"@"];
+			
+			NSString *log  = [srv substringToIndex:rng.location];
+			NSString *host = [srv substringFromIndex:rng.location+1];
+			
+			row = [NSMutableDictionary dictionary];
+			
+			[row setValue:host forKey:@"server"];
+			[row setValue:[NSNumber numberWithInt:port] forKey:@"port"];
+			[row setValue:log forKey:@"login"];
+			[row setValue:@"" forKey:@"dir"];
+			[row setValue:@"" forKey:@"arguments"];
+			
+			[newEntries insertObject:row atIndex:i];
+		}
+		
+		//NSLog(@"%@", newEntries);
+		
+		[_def removeObjectForKey:@"recentServers"];
+		
+		[_def setObject:newEntries forKey:@"servers"];
 	}
+	
+	if(![_def objectForKey:@"servers"])
+	{
+		[_def setObject:[NSArray array] forKey:@"servers"];
+	}
+	
+//	if(! (_entries = [_def 
 	
 	return self;
 }
 
-- (void)addEntry:(NSString *)server
+- (NSDictionary *)getDictAtIndex:(NSUInteger)rowIndex
 {
-	NSMutableArray *a = [NSMutableArray arrayWithArray:entries];
-	
-	[a removeObject:server];
-	[a insertObject:server atIndex:0];
-	
-	[def setObject:a forKey:@"recentServers"];
-	
-	entries = [def objectForKey:@"recentServers"];
+	return [[_def objectForKey:@"servers"] objectAtIndex:rowIndex];
 }
 
-- (NSString *)getEntryAtIndex:(NSUInteger)rowIndex
+- (void)deleteDictAtIndex:(NSUInteger)rowIndex
 {
-	return [entries objectAtIndex:rowIndex];
+	NSMutableArray *servers = [NSMutableArray arrayWithArray:[_def objectForKey:@"servers"]];
+	[servers removeObjectAtIndex:rowIndex];
+	[_def setObject:servers forKey:@"servers"];
 }
 
-- (void)deleteEntryAtIndex:(NSUInteger)rowIndex
+- (void)addEntryWithServer:(NSString *)server port:(int)port login:(NSString *)login directory:(NSString *)directory cmdOpt:(NSString *)cmdOpt
 {
-	NSMutableArray *a = [NSMutableArray arrayWithArray:entries];
+	NSMutableArray *servers = [NSMutableArray arrayWithArray:[_def objectForKey:@"servers"]];
 	
-	[a removeObjectAtIndex:rowIndex];
+	NSMutableDictionary *row = [NSMutableDictionary dictionary];
 	
-	[def setObject:a forKey:@"recentServers"];
+	[row setValue:server forKey:@"server"];
+	[row setValue:[NSNumber numberWithInt:port] forKey:@"port"];
+	[row setValue:login forKey:@"login"];
+	[row setValue:directory forKey:@"dir"];
+	[row setValue:cmdOpt forKey:@"arguments"];
 	
-	entries = [def objectForKey:@"recentServers"];
+	[servers removeObject:row];
+	[servers insertObject:row atIndex:0];
+	
+	[_def setObject:servers forKey:@"servers"];
 }
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)aTableView
 {
-	return [entries count];
+	return [[_def objectForKey:@"servers"] count];
 }
 
 - (id)tableView:(NSTableView *)aTableView objectValueForTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex
@@ -65,14 +120,34 @@
 	//NSLog(@"rowIndex — %d\n", rowIndex);
 	// numbering starts with 0
 	
-	return [self getEntryAtIndex:rowIndex];
+	NSDictionary *dict = [self getDictAtIndex:rowIndex];
+	
+	NSMutableString *str = [NSMutableString stringWithString:@""];
+	
+	NSString *login = [dict objectForKey:@"login"];
+	NSString *server = [dict objectForKey:@"server"];
+	
+	[str appendFormat:@"%@@%@", login, server];
+	
+	int port = [[dict objectForKey:@"port"] intValue];
+	
+	if(port != 22) [str appendFormat:@":%d", port];
+	
+	NSString *dir = [dict objectForKey:@"dir"];
+	if([dir length] > 0)
+	{
+		if([dir characterAtIndex:0] == '/') [str appendFormat:@"%@", dir];
+		else [str appendFormat:@" on %@", dir];
+	}
+	
+	return str;
 }
 
-- (void)release
+- (void)dealloc
 {
-	[def release];
+	[_def dealloc];
 	
-	[super release];
+	[super dealloc];
 }
 
 @end

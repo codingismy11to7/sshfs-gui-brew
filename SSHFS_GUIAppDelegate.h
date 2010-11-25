@@ -25,6 +25,9 @@
 	IBOutlet NSTextField *login;
 	IBOutlet NSSecureTextField *password;
 	
+	IBOutlet NSTextField *directory;
+	IBOutlet NSTextField *cmdLineOptions;
+	
 	IBOutlet NSProgressIndicator *progress;
 	
 	IBOutlet NSButton *connectButton;

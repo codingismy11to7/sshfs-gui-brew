@@ -13,8 +13,8 @@
 
 int main(int argc, char *argv[])
 {
-//#ifndef RELEASE
-#if 0
+#ifndef RELEASE
+//#if 0
 	
 	//test behaviour when there are no shared defaults
 	
