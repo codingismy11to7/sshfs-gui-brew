@@ -18,11 +18,11 @@ int main(int argc, char *argv[])
 	
 	//test behaviour when there are no shared defaults
 	
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	/*NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
 	unlink( [[@"~/Library/Preferences/org.YNProducts.SSHFS-GUI.plist" stringByExpandingTildeInPath] UTF8String] );
 	
-	[pool release];
+	[pool release];*/
 	
 #endif
 	

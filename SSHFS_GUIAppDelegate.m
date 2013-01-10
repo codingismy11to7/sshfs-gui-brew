@@ -137,10 +137,10 @@
 		// need to determine, what is installed, and if it is installed
 		// if nothing is installed, show "Nothing found" message and quit
 		
-		if( [mng fileExistsAtPath:@"/Library/Frameworks/MacFUSE.framework"] )
+		/*if( [mng fileExistsAtPath:@"/Library/Frameworks/MacFUSE.framework"] )
 		{
 			[def setObject:@"MacFUSE" forKey:@"implementation"];
-		}else if( [mng fileExistsAtPath:@"/Applications/sshfs/bin/mount_sshfs"] )
+		}else*/ if( [mng fileExistsAtPath:@"/usr/local/bin/sshfs"] )
 		{
 			[def setObject:@"pqrs.org" forKey:@"implementation"];
 		}else
@@ -185,9 +185,9 @@
 		return NSTerminateLater;
 		
 		// there could be some processes left, which also
-		// will be killed after system("mount_ssfhs / sshfs-static-leopard ...") call fails
+		// will be killed after system("ssfhs / sshfs-static-leopard ...") call fails
 		// because of ourselves killing all child processes,
-		// including mount_sshfs / sshfs-static-leopard launched by system()
+		// including sshfs / sshfs-static-leopard launched by system()
 	}
 	
 	return NSTerminateNow;
@@ -371,7 +371,7 @@
 		[buf setString:@"yes"];
 	}else
 	{
-		// of course, mount_sshfs / sshfs-static-leopard would raise an error
+		// of course, sshfs / sshfs-static-leopard would raise an error
 		// when connecting, but we can skip this error and do not show the error
 		// message to user, because it is not really an error, just a notice
 		// that you refused SSH authentity check
@@ -409,10 +409,10 @@
 	compression = [def boolForKey:@"compression"];
 	useKeychain = [def boolForKey:@"useKeychain"];
 	
-	if( [[def stringForKey:@"implementation"] isEqualToString:@"MacFUSE"] ) implementation = IMPLEMENTATION_MACFUSE;
-	else                                                                    implementation = IMPLEMENTATION_PRQSORG;
+	/*if( [[def stringForKey:@"implementation"] isEqualToString:@"MacFUSE"] ) implementation = IMPLEMENTATION_MACFUSE;
+	else*/                                                                    implementation = IMPLEMENTATION_PRQSORG;
 	
-	// prepare variables for execution of mount_sshfs
+	// prepare variables for execution of sshfs
 	
 	NSString *mnt_loc = [NSString stringWithFormat:@"/Volumes/%@@%@", log, srv];
 	NSString *cmd;
@@ -424,12 +424,12 @@
 	switch(implementation)
 	{
 		case IMPLEMENTATION_PRQSORG:
-			cmd = [NSString stringWithFormat:@"/Applications/sshfs/bin/mount_sshfs -p %d %@ '%@@%@:%@' '%@' >%s 2>&1", port, cmdlnOpt, log, srv, remote_dir, mnt_loc, ERR_TMPFILE];
+			cmd = [NSString stringWithFormat:@"/usr/local/bin/sshfs -p %d %@ '%@@%@:%@' '%@' >%s 2>&1", port, cmdlnOpt, log, srv, remote_dir, mnt_loc, ERR_TMPFILE];
 			break;
-		case IMPLEMENTATION_MACFUSE:
+		/*case IMPLEMENTATION_MACFUSE:
 			chdir( [[[NSBundle mainBundle] bundlePath] UTF8String] );
 			cmd = [NSString stringWithFormat:@"./Contents/Resources/sshfs-static-leopard '%@@%@:%@' '%@' -p %d %@ -o workaround=nonodelay -ovolname='%@@%@' -oNumberOfPasswordPrompts=1 -o transform_symlinks -o idmap=user %@ >%s 2>&1", log, srv, remote_dir, mnt_loc, port, cmdlnOpt, log, srv, compression ? @" -C" : @"", ERR_TMPFILE];
-			break;
+			break;*/
 	}
 	
 	//NSLog(@"%@", cmd);
@@ -476,7 +476,7 @@
 		
 		if(response == NSAlertDefaultReturn) canContinue = NO;
 		shouldSkipConnectionError = YES;
-	}else if(implementation == IMPLEMENTATION_PRQSORG && ![mng fileExistsAtPath:@"/Applications/sshfs/bin/mount_sshfs"])
+	}else if(implementation == IMPLEMENTATION_PRQSORG && ![mng fileExistsAtPath:@"/usr/local/bin/sshfs"])
 	{
 		alert = [NSAlert alertWithMessageText:@"SSHFS console utility missing" defaultButton:@"OK" alternateButton:nil otherButton:nil informativeTextWithFormat:@"You do not seem to have SSHFS console utility from pqrs.org installed.\n\nPlease download and install it either from\nhttp://pqrs.org/macosx/sshfs/\n\nor from SSHFS GUI project at\n\nhttp://code.google.com/p/sshfs-gui/"];
 	
@@ -497,7 +497,7 @@
 		
 		if(!getenv("DISPLAY")) putenv("DISPLAY=NONE"); // need to set something DISPLAY variable in order SSH_ASKPASS to activate
 		putenv((char*)[[NSString stringWithFormat:@"SSHFS_PIPES=%d,%d;%d,%d", pipes_write[0], pipes_write[1], pipes_read[0], pipes_read[1]] UTF8String]);
-		putenv((char*)[[NSString stringWithFormat:@"SSH_ASKPASS=%@/Contents/Resources/asker", [[NSBundle mainBundle] bundlePath]] UTF8String]);
+//		putenv((char*)[[NSString stringWithFormat:@"SSH_ASKPASS=%@/Contents/Resources/asker", [[NSBundle mainBundle] bundlePath]] UTF8String]);
 		
 		//printf("Preparing to make a system call\n");
 		
@@ -629,8 +629,8 @@
 	{
 		// unfortunately, some processes are left after we terminate all our direct children processes, so we will kill all the rest hanging processes manually
 		
-		if(implementation == IMPLEMENTATION_PRQSORG)      [self killByPattern:@"/Applications/sshfs/bin/mount_sshfs -p %d %@@%@", port, [login stringValue], srv];
-		else if(implementation == IMPLEMENTATION_MACFUSE) [self killByPattern:@"./Contents/Resources/sshfs-static-leopard %@@%@:", [login stringValue], srv];
+		if(implementation == IMPLEMENTATION_PRQSORG)      [self killByPattern:@"/usr/local/bin/sshfs -p %d %@@%@", port, [login stringValue], srv];
+		//else if(implementation == IMPLEMENTATION_MACFUSE) [self killByPattern:@"./Contents/Resources/sshfs-static-leopard %@@%@:", [login stringValue], srv];
 		
 		[self killByPattern:@"ssh .* %@@%@ -s sftp", [login stringValue], srv];
 		
